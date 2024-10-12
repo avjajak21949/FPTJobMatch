@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualBasic;
 
 namespace FPTJobMatch.Models
@@ -16,5 +17,8 @@ namespace FPTJobMatch.Models
         public string Place {  get; set; }
         [Required]
         public string Time {  get; set; }
+        public int CategoryID {  get; set; }
+        public Category Category { get; set; }
+        public ICollection<JobCV> JobCV { get; set; }
     }
 }

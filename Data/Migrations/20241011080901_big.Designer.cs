@@ -4,14 +4,16 @@ using FPTJobMatch.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FPTJobMatch.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241011080901_big")]
+    partial class big
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,21 +141,21 @@ namespace FPTJobMatch.Data.Migrations
                         new
                         {
                             Id = "role0",
-                            ConcurrencyStamp = "bda21360-9c8c-40eb-801b-57c7b2dcbf90",
+                            ConcurrencyStamp = "1f35d497-3738-4555-8060-27af2bb71738",
                             Name = "Adminstator",
                             NormalizedName = "ADMINSTRATOR"
                         },
                         new
                         {
                             Id = "role1",
-                            ConcurrencyStamp = "8c31071b-c32d-47ed-8ab8-e5d255166bc3",
+                            ConcurrencyStamp = "7dbaeef4-020b-44cb-96cf-e94d3e440270",
                             Name = "Jobseeker",
                             NormalizedName = "JOBSEEKER"
                         },
                         new
                         {
                             Id = "role2",
-                            ConcurrencyStamp = "677dbf42-543a-490d-8451-4a8db7e8997d",
+                            ConcurrencyStamp = "3dc0f0e4-410c-4ce5-9056-3c3dd0ebfa19",
                             Name = "Employer",
                             NormalizedName = "EMPLOYER"
                         });
@@ -252,15 +254,15 @@ namespace FPTJobMatch.Data.Migrations
                         {
                             Id = "user0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "09c48197-1b2e-4c9c-b92d-8a6d23b4f040",
+                            ConcurrencyStamp = "a4ed2003-7e1d-4b3b-9c45-a2fed9e800cb",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEICVNydNMN0eYBYq5CWn+EH4psl2a0/JeMVYo1jm/+9gmBzMGdpimd3/qztBbsDluA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHWGiAVeFpCSEPgCl5LZ0y5tkIwK2gh9LYoHeghZSjLvccl8XVV6vBGwC4AS8lBwrg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f5a2b516-7884-45ae-a1e9-e230ff97d2a2",
+                            SecurityStamp = "27a7692a-2614-4223-b083-dabc95fdce79",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -268,15 +270,15 @@ namespace FPTJobMatch.Data.Migrations
                         {
                             Id = "user1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "789f367e-cadc-4822-b26c-887beefae822",
+                            ConcurrencyStamp = "ce533782-cbe8-4f0d-b4fe-0fa10cdeb729",
                             Email = "jobseeker@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "JOBSEEKER@GMAIL.COM",
                             NormalizedUserName = "JOBSEEKER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAopoRrTrD5YQGcOJhMF+Ei9JZ+V2BH0fYFd7R8/wvOSp+LK+pK/AV8dCONl29MVFg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMrwGDY75pOjnDJV6dALvR1cOAA9BZu3f493VgEdWukbo/DsBab5UKcnl1Czslg8UA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c53b28a2-1a1f-412a-bcda-9d38949fd304",
+                            SecurityStamp = "6ff96216-b921-4062-8308-343383b6d701",
                             TwoFactorEnabled = false,
                             UserName = "jobseeker@gmail.com"
                         },
@@ -284,15 +286,15 @@ namespace FPTJobMatch.Data.Migrations
                         {
                             Id = "user2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a4fff80e-1046-4a75-b3e4-37a33eace9cd",
+                            ConcurrencyStamp = "8183cca8-db94-48c3-8aca-025b895ecd57",
                             Email = "employer@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYER@GMAIL.COM",
                             NormalizedUserName = "EMPLOYER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOlax6qxz29q28L82FdlEcj3XdQd64ymv7gkyuAT9S9wg+OdWNuwjkc4uesdziy3fw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMS89VF90htRet+EJ21fm5w4jIeDtLRY1C384f2Xu44PIuL4EFPMC3bMqi7uofOPoQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "abe1d638-44e5-4a91-a49b-bbfff6a8cc7c",
+                            SecurityStamp = "6ee13600-c8d3-4a80-89dc-adb7b84e9bf2",
                             TwoFactorEnabled = false,
                             UserName = "employer@gmail.com"
                         });
