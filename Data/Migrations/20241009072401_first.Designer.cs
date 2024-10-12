@@ -4,14 +4,16 @@ using FPTJobMatch.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FPTJobMatch.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241009072401_first")]
+    partial class first
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,29 +136,6 @@ namespace FPTJobMatch.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "role0",
-                            ConcurrencyStamp = "bda21360-9c8c-40eb-801b-57c7b2dcbf90",
-                            Name = "Adminstator",
-                            NormalizedName = "ADMINSTRATOR"
-                        },
-                        new
-                        {
-                            Id = "role1",
-                            ConcurrencyStamp = "8c31071b-c32d-47ed-8ab8-e5d255166bc3",
-                            Name = "Jobseeker",
-                            NormalizedName = "JOBSEEKER"
-                        },
-                        new
-                        {
-                            Id = "role2",
-                            ConcurrencyStamp = "677dbf42-543a-490d-8451-4a8db7e8997d",
-                            Name = "Employer",
-                            NormalizedName = "EMPLOYER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -246,56 +225,6 @@ namespace FPTJobMatch.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "user0",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "09c48197-1b2e-4c9c-b92d-8a6d23b4f040",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEICVNydNMN0eYBYq5CWn+EH4psl2a0/JeMVYo1jm/+9gmBzMGdpimd3/qztBbsDluA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f5a2b516-7884-45ae-a1e9-e230ff97d2a2",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "user1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "789f367e-cadc-4822-b26c-887beefae822",
-                            Email = "jobseeker@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JOBSEEKER@GMAIL.COM",
-                            NormalizedUserName = "JOBSEEKER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAopoRrTrD5YQGcOJhMF+Ei9JZ+V2BH0fYFd7R8/wvOSp+LK+pK/AV8dCONl29MVFg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c53b28a2-1a1f-412a-bcda-9d38949fd304",
-                            TwoFactorEnabled = false,
-                            UserName = "jobseeker@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "user2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a4fff80e-1046-4a75-b3e4-37a33eace9cd",
-                            Email = "employer@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "EMPLOYER@GMAIL.COM",
-                            NormalizedUserName = "EMPLOYER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOlax6qxz29q28L82FdlEcj3XdQd64ymv7gkyuAT9S9wg+OdWNuwjkc4uesdziy3fw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "abe1d638-44e5-4a91-a49b-bbfff6a8cc7c",
-                            TwoFactorEnabled = false,
-                            UserName = "employer@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -359,23 +288,6 @@ namespace FPTJobMatch.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "user0",
-                            RoleId = "role0"
-                        },
-                        new
-                        {
-                            UserId = "user1",
-                            RoleId = "role1"
-                        },
-                        new
-                        {
-                            UserId = "user2",
-                            RoleId = "role2"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
