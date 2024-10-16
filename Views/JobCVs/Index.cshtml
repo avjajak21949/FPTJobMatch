@@ -1,29 +1,31 @@
 ﻿@model IEnumerable<FPTJobMatch.Models.JobCV>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Job Applications";
 }
 
-<h1>Index</h1>
+<h1>Job Applications</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table table-bordered">
+    <thead class="thead-dark">
         <tr>
-            <th></th>
+            <th>Job Title</th>
+            <th>Applicant</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.JobCVID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.JobCVID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.JobCVID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Job.Title</td>
+                <td>@item.CV.Applicant.UserName</td>
+                <td>
+                    <a asp-action="DownloadCV" asp-route-cvId="@item.CV.CVID" class="btn btn-primary">Download CV</a>
+                    <a asp-action="ApproveCV" asp-route-jobCVID="@item.JobCVID" class="btn btn-success">Approve</a>
+                    <a asp-action="RejectCV" asp-route-jobCVID="@item.JobCVID" class="btn btn-danger">Reject</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

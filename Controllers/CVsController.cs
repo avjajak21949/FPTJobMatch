@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using FPTJobMatch.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FPTJobMatch.Controllers
 {
@@ -18,20 +19,20 @@ namespace FPTJobMatch.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-
-        public CVsController(UserManager<IdentityUser> userManager)
-        {
-            _userManager = userManager;
-        }
-        public CVsController(ApplicationDbContext context)
+        public CVsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: CVs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CV.ToListAsync());
+            var currentUser = await _userManager.GetUserAsync(User); // Lấy user hiện tại
+            var cv = await _context.CV
+                                .Where(j => j.ApplicantId == currentUser.Id) // Chỉ lấy các công việc do user này đăng
+                                .ToListAsync();
+            return View(cv);
         }
 
         // GET: CVs/Details/5
@@ -65,8 +66,10 @@ namespace FPTJobMatch.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CV product, IFormFile Image)
+        public async Task<IActionResult> Create(CV product, IFormFile Image)
         {
+            var currentUser = await _userManager.GetUserAsync(User); // Lấy user hiện tại đang đăng nhập
+            product.ApplicantId = currentUser.Id; // Gán ApplicantId là ID của user hiện tại
             if (ModelState.IsValid)
             {
                 //check if a new image file is uploaded or not
@@ -99,12 +102,16 @@ namespace FPTJobMatch.Controllers
         [Authorize(Roles = "Jobseeker")]
         public async Task<IActionResult> Edit(int? id)
         {
+            var cV = await _context.CV.FindAsync(id);
+            var currentUser = await _userManager.GetUserAsync(User); // Lấy user hiện tại
+            if (cV.ApplicantId != currentUser.Id)
+            {
+                return Unauthorized(); // Nếu công việc này không thuộc về user hiện tại, trả về lỗi 403
+            }
             if (id == null)
             {
                 return NotFound();
             }
-
-            var cV = await _context.CV.FindAsync(id);
             if (cV == null)
             {
                 return NotFound();
@@ -119,6 +126,11 @@ namespace FPTJobMatch.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Image,Price")] CV product)
         {
+            var currentUser = await _userManager.GetUserAsync(User); // Lấy user hiện tại
+            if (product.ApplicantId != currentUser.Id)
+            {
+                return Unauthorized(); // Nếu công việc này không thuộc về user hiện tại, trả về lỗi 403
+            }
             if (id != product.CVID)
             {
                 return NotFound();
@@ -152,13 +164,17 @@ namespace FPTJobMatch.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
+            var cV = await _context.CV
+                .FirstOrDefaultAsync(m => m.CVID == id);
+            var currentUser = await _userManager.GetUserAsync(User); // Lấy user hiện tại
+            if (cV.ApplicantId != currentUser.Id)
+            {
+                return Unauthorized(); // Nếu công việc này không thuộc về user hiện tại, trả về lỗi 403
+            }
             if (id == null)
             {
                 return NotFound();
             }
-
-            var cV = await _context.CV
-                .FirstOrDefaultAsync(m => m.CVID == id);
             if (cV == null)
             {
                 return NotFound();
@@ -182,28 +198,5 @@ namespace FPTJobMatch.Controllers
         {
             return _context.CV.Any(e => e.CVID == id);
         }
-        [Authorize(Roles = "Jobseeker")]
-        public async Task<IActionResult> Apply(int jobId, string cvFile)
-        {
-            var userId = _userManager.GetUserId(User); // Lấy Id của ứng viên đang đăng nhập
-
-            var cv = new CV
-            {
-                file = cvFile,
-                ApplicantId = userId, // Gắn CV với Jobseeker đang apply
-            };
-
-            var jobCV = new JobCV
-            {
-                JobCVID = jobId,  // Gắn CV với Job
-                CV = cv
-            };
-
-            _context.JobCV.Add(jobCV); // Thêm vào bảng trung gian JobCV
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("JobDetails", new { id = jobId });
-        }
-
     }
 }
